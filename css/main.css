@@ -117,8 +117,10 @@ ul {
   font-size: 2rem;
   display: block;
   padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
   text-align: center;
   font-weight: 100;
+  color: #fff;
   text-transform: uppercase; }
 
 .bottom-line {
@@ -150,6 +152,17 @@ ul {
   margin-bottom: 15px;
   font-size: 20px; }
 
+.btn-p {
+  color: white;
+  background: var(--black);
+  padding: 15px;
+  padding-left: -15px;
+  border: none;
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 150px;
+  font-size: 20px; }
+
 #about-skills .progress {
   overflow: hidden;
   height: 20px;
@@ -165,7 +178,16 @@ ul {
 
 .accoplishments {
   list-style: none;
-  overflow: hidden; }
+  overflow: hidden;
+  padding-bottom: 6rem;
+  font-size: 15px;
+  color: black;
+  background: #333; }
+
+.Skills {
+  font-size: 15px;
+  padding: 5px;
+  color: white; }
 
 .section-title-1 {
   font-size: 30px;
@@ -185,6 +207,7 @@ ul {
 
 .about-p {
   color: #333;
+  background: #333;
   display: inline-block;
   padding: 1rem; }
 
@@ -208,7 +231,8 @@ ul {
 
 #contact-form {
   display: block;
-  font-size: 15px; }
+  font-size: 15px;
+  background: #333; }
 
 #contact-form #contact-form .form-group {
   margin-bottom: 40px;
@@ -234,7 +258,7 @@ ul {
   height: 20px; }
 
 .form-group {
-  color: #222;
+  color: #ffbc00;
   padding-bottom: 15px;
   display: block; }
 
