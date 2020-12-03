@@ -1,53 +1,70 @@
-class TypeWriter {
-    constructor(txtElement, words, wait = 3000) {
-        this.txtElement = txtElement;
-        this.words = words;
-        this.txt = '';
-        this.wordIndex = 0;
-        this.wait = parseInt(wait, 10);
-        this.type();
-        this.isDeleting = false;
+    function getKey (e) {
+        var location = e.location;
+        var selector;
+        if (location === 
+            KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+                selector = ['[data-key="' + e.keyCode + '-R"]']
+            } else {
+                var code = e.keyCode || e.which;
+                selector = [
+                    '[data-key="' + code + '"]',
+                    '[data-char*="' + encodeURIComponent(String.fromCharCode(code)) + '"]'
+                ].join(',');
+            }
+            return document.querySelector(selector);
     }
-    type() {
-        const current = this.wordIndex % this.words.length;
-        const fullTxt = this.words[current];
 
-        if (this.isDeleting) {
-            this.txt = fullTxt.substring(0, this.txt.length - 1);
-        } else {
-            this.txt = fullTxt.substring(0, this.txt.length + 1)
+    function pressKey (char) {
+        var key = document.querySelector('[data-char*="' + char.toUpperCase() + '"]');
+        if (!key) {
+            return console.warn('No key for', char);
         }
-
-        this.txtElement.innerHTML = `<span class = "txt">${this.txt}</span> `;
-
-        let typeSpeed = 300;
-
-        if (this.isDeleating) {
-            typeSpeed/= 2;
-        }
-
-        // If word is complete
-        if (!this.isDeleting && this.txt === fullTxt) {
-            typeSpeed = this.wait;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === "") {
-            this.isDeleting = false;
-            this.wordIndex++;
-            typeSpeed = 500;
-        }
-
-        setTimeout(() => this.type(), typeSpeed);
+        key.setAttribute('data-pressed', 'on');
+        setTimeout(function () {
+            key.removeAttribute('data-pressed');
+        }, 200);
     }
-}
 
-document.addEventListener('DOMContentLoaded', init);
+    var h1 = document.querySelector('h1');
+    var originalQueue = h1.innerHTML;
+    var queue = h1.innerHTML;
 
-function init () {
-    const txtElement = document.querySelector('.txt-type');
-    const words = JSON.parse(txtElement.getAttribute('data-words'));
-    const wait = txtElement.getAttribute('data-wait');
+    function next () {
+        var c = queue[0];
+        queue = queue.slice(1);
+        h1.innerHTML = originalQueue.slice(0, originalQueue.length - queue.length);
+        pressKey(c);
+        if (queue.length) {
+            setTimeout(next, Math.random() * 200 + 50);
+        }
+    }
 
-    new TypeWriter(txtElement, words, wait);
-}
+    h1.innerHTML = "&nbsp;";
+    setTimeout(next, 500);
 
 
+    document.body.addEventListener('keydown', function (e) {
+        var key = getKey(e);
+        if (!key) {
+            return console.warn('No key for', e.keyCode);
+        }
+
+        key.setAttribute('data-pressed', 'on');
+    });
+
+    document.body.addEventListener('keyup', function (e) {
+        var key = getKey(e);
+        key && key.removeAttribute('data-pressed');
+    });
+
+    function size () {
+        var size = keyboard.parentNode.clientWidth / 90;
+        keyboard.style.fontSize = size + 'px';
+        console.log(size);
+    }
+
+    var keyboard = document.querySelector('.keyboard');
+    window.addEventListener('resize', function (e) {
+        size();
+    });
+    size();
