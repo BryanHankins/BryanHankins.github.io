@@ -362,12 +362,12 @@ ul {
   border: 1px; }
 
 .about-p {
-  color: wheat;
+  color: white;
   display: inline-block;
   padding: 1rem; }
 
 .about-p:hover {
-  color: wheat; }
+  color: white; }
 
 .about-p:hover,
 .aboutme-1:hover {
@@ -437,7 +437,7 @@ ul {
 #Main-footer .footer-contents .fab {
   padding: 1rem;
   float: center;
-  border: solid blue 1px;
+  border: solid black 2px;
   border-top: 20px;
   border-left: 20px;
   border-radius: 50%;
@@ -448,7 +448,8 @@ ul {
   height: 20px; }
 
 .fab:hover {
-  background: ivory;
+  background: white;
   color: #222;
   border: #222;
-  animation-timing-function: 5s; }
+  border-left: -20px;
+  animation-timing-function: 2s; }
